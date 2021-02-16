@@ -21,7 +21,7 @@ public class Main {
         do {
             System.out.println("Enter the new line: ");
             echoString = scanner.nextLine();
-            System.out.println(echoString);
+            System.out.println("Changes in Git Hub");
             stringtoEcho.println(echoString);
 
             if(!echoString.equals("exit")){
