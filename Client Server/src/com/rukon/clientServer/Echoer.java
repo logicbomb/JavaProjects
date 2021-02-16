@@ -21,6 +21,7 @@ public Echoer(Socket socket){
     @Override
     public void run() {
         try {
+
             BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
             System.out.println(this.clientID + " is Connected");
