@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SFTPSend">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../JsCh Test/out/artifacts/JsCh_Test_jar/SFTPSend.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

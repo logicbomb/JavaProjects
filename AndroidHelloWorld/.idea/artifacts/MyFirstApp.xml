@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="apk" name="MyFirstApp">
+    <output-path>$PROJECT_DIR$/build/classes/artifacts/MyFirstApp</output-path>
+    <properties id="android-properties">
+      <options>
+        <option name="keyStoreUrl" value="file://" />
+      </options>
+    </properties>
+    <root id="archive" name="MyFirstApp.apk">
+      <element id="android-final-package" facet="AndroidHelloWorld.app/android/Android" />
+    </root>
+  </artifact>
+</component>
