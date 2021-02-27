@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.function.DoubleToIntFunction;
 import java.util.logging.SocketHandler;
@@ -18,20 +19,31 @@ public Echoer(Socket socket){
     this.clientID = this.getId();
 }
 
+
+    public static void sendToClient(Socket socket, Echoer receiver, String message) throws IOException {
+        PrintWriter writer2 = new PrintWriter(socket.getOutputStream(), true);
+        writer2.println("Hi I am your server, you just wrote: from [" + receiver.getName() + "]: " + message);
+    }
     @Override
     public void run() {
         try {
 
             BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-            System.out.println(this.clientID + " is Connected");
+            System.out.println(this.clientID + " is Connected ");
+
+
             while(true){
                 String echoString = input.readLine();
                 System.out.println("Received new message from: [Client " + this.clientID + "] " + echoString);
                 if(echoString=="exit"){
                     break;
                 }
-                writer.println("Hi I am your server, you just wrote: from " + this.clientID+ " "  + echoString);
+                for(int i =0; i<10;i++) {
+
+                    writer.println("Hi I am your server, you just wrote: from " + i + " " + this.clientID + " " + echoString);
+                }
+
             }
         }
         catch (IOException e){
@@ -45,5 +57,13 @@ public Echoer(Socket socket){
 
             }
         }
+    }
+
+    public long getClientID() {
+        return clientID;
+    }
+
+    public Socket getSocket() {
+        return socket;
     }
 }
