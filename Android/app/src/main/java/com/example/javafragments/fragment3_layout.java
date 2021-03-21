@@ -15,8 +15,8 @@ import androidx.fragment.app.Fragment;
  * Use the  factory method to
  * create an instance of this fragment.
  **/
-public class fragment2_layout extends Fragment {
-    private static final String TAG = "Fragment1";
+public class fragment3_layout extends Fragment {
+    private static final String TAG = "Fragment3";
     private Button btnNavFrag1;
     private Button btnNavFrag2;
     private Button btnNavFrag3;
@@ -26,7 +26,7 @@ public class fragment2_layout extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_fragment1_layout, container, false);
+        View view = inflater.inflate(R.layout.fragment_fragment3_layout, container, false);
     btnNavFrag1 = (Button)view.findViewById(R.id.btnNavFrag1);
     btnNavFrag2 = (Button)view.findViewById(R.id.btnNavFrag2);
     btnNavFrag3 = (Button)view.findViewById(R.id.btnNavFrag3);

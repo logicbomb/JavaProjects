@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class GreetingController {
-
+    public static final String NAME = "Rukon";
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
 //    public String greeting4(@RequestParam(name="name", required=false, defaultValue="Rukon") String name,
@@ -23,15 +23,15 @@ public class GreetingController {
         return " greeting4";
     }
 
-        @RequestMapping(value = "/greeting", method = RequestMethod.POST)
-        public String greeting(
+        @RequestMapping("/greeting")
+        public String greeting(){
 //        @RequestParam(name="name", required=false, defaultValue="Rukon") String name,
 //                               @RequestParam(name="age", required=false, defaultValue="0") String age,
-//                               Model model
-                               )
-        {
+//                             Model model
+//                               )
+//        {
 //            model.addAttribute("name", name);
-//            model.addAttribute("age", age);
+//           model.addAttribute("age", age);
             return "greeting";
         }
 

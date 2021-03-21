@@ -1,62 +1,148 @@
 package com.example.javafragments;
 
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.io.*;
+import java.net.*;
+import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragment1_layout#newInstance} factory method to
+ * Use the  factory method to
  * create an instance of this fragment.
- */
+ **/
 public class fragment1_layout extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private EditText editText;
+    private Button btnSendMessage;
+  //  private ChatClient client;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private PrintWriter writer;
+    private BufferedReader input;
+    private TextView textView;
+    private Thread t1;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private ArrayList<Message> chatText;
+    private Message message;
+    private Socket socket;
 
-    public fragment1_layout() {
-        // Required empty public constructor
-    }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment1_layout.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static fragment1_layout newInstance(String param1, String param2) {
-        fragment1_layout fragment = new fragment1_layout();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment1_layout, container, false);
+        View view = inflater.inflate(R.layout.fragment_fragment1_layout, container, false);
+
+    editText = (EditText) view.findViewById(R.id.textMessage);
+    btnSendMessage = (Button)view.findViewById(R.id.btnNavSendMessage);
+    //textView = (TextView)view.findViewById(R.id.textChat);
+   chatText = new ArrayList<>();
+//for (int i = 0; i < 5; i++){
+//    chatText.add(new Message(1, "This is a sample text " + i) );
+//}
+
+        mRecyclerView = view.findViewById(R.id.recChat) ;
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this.getContext());
+
+        mAdapter = new CustomAdapter(chatText);
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+
+
+        Log.d("Main Chat Screen", "onCreate: started.");
+
+        try {
+            socket = new Socket("192.168.56.1", 5000);
+
+            input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            writer = new PrintWriter(socket.getOutputStream(), true);
+            writer.println("Getiing connected");
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (true) {
+                        String inMessage = null;
+                        try {
+                            inMessage = input.readLine();
+                            chatText.add(new Message(1, inMessage));
+
+                            new Handler(Looper.getMainLooper()).post(new Runnable(){
+                                @Override
+                                public void run() {
+                                    mAdapter.notifyDataSetChanged();
+                                }
+                            });
+
+                        } catch (IOException exception) {
+
+                            try {
+                                socket.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            exception.printStackTrace();
+                            break;
+                        }
+
+
+                      //  textView.setText(textView.getText() + "\n" + inMessage);
+
+                        System.out.println("New Message: " + inMessage);
+
+                    }
+                }
+            }).start();
+
+        } catch (IOException exception) {
+            exception.printStackTrace();
+            editText.setText(exception.getMessage());
+            System.out.println("Something went wrong");
+        }
+
+        btnSendMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String message = editText.getText().toString();
+                writer.println(editText.getText());
+
+                chatText.add(new Message(2, message));
+                System.out.println(socket.isClosed() + " " + socket.isConnected());
+                editText.setText("");
+                mAdapter.notifyDataSetChanged();
+//                mAdapter = new CustomAdapter(chatText);
+//
+//                mRecyclerView.setLayoutManager(mLayoutManager);
+//                mRecyclerView.setAdapter(mAdapter);
+//                if(t1.isAlive()==false){
+//                    t1.start();
+//                }
+
+
+            }
+        });
+
+
+
+    return view;
     }
 }

@@ -21,7 +21,7 @@ public class ChatClient extends Thread {
     public ChatClient() {
 
         try {
-            this.socket = new Socket("localhost", 5000);
+            this.socket = new Socket("192.168.1.103", 5000);
             this.input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.printWriter = new PrintWriter(socket.getOutputStream(), true);
 

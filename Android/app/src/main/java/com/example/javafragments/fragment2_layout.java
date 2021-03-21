@@ -3,20 +3,20 @@ package com.example.javafragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.Toast;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the  factory method to
  * create an instance of this fragment.
  **/
-public class fragment1_layout extends Fragment {
-    private static final String TAG = "Fragment1";
+public class fragment2_layout extends Fragment {
+    private static final String TAG = "Fragment 2";
     private Button btnNavFrag1;
     private Button btnNavFrag2;
     private Button btnNavFrag3;
@@ -26,7 +26,7 @@ public class fragment1_layout extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_fragment1_layout, container, false);
+        View view = inflater.inflate(R.layout.fragment_fragment2_layout, container, false);
     btnNavFrag1 = (Button)view.findViewById(R.id.btnNavFrag1);
     btnNavFrag2 = (Button)view.findViewById(R.id.btnNavFrag2);
     btnNavFrag3 = (Button)view.findViewById(R.id.btnNavFrag3);
@@ -54,7 +54,7 @@ public class fragment1_layout extends Fragment {
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "Going to Fragment 3", Toast.LENGTH_SHORT).show();
                 //navigate
-                ((MainActivity)getActivity()).setmViewPager(2);
+                ((MainActivity)getActivity()).setmViewPager(3);
 
             }
         });

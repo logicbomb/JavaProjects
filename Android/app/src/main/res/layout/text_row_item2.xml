@@ -1,22 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="wrap_content"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
              android:layout_height="wrap_content"
 
-             android:background="@drawable/rounded"
+
              android:layout_margin="2dp"
+
+
+>
+<RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:paddingLeft="40dp"
+
 >
 
     <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textViewSender"
             android:layout_width="wrap_content"
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:layout_height="wrap_content"
             android:text="Sample Text"
             android:paddingLeft="3dp"
             android:paddingRight="3dp"
+            android:background="@drawable/send_shape"
+            android:layout_alignParentRight="true"
+
+
+
+
+
+
+
     />
-
-
-
 </RelativeLayout>
+
+
+</FrameLayout>

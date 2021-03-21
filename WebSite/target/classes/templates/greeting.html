@@ -10,13 +10,8 @@
 </head>
 <body>
 <body>
-<h1 th:text="'Hello, ' + ${name} + '! Your age is ' + ${age}"></h1>
-<form action="greeting" method="post">
-<input type="text" name="inputButton" text="Enter Your Name Here!">
-<input type="age" name="inputButton" text="Enter Your Name Here!">
-<input type="submit" value="Change Name">
-</form>
-<p>Get your greeting <a href="/greeting?name=Rukon">here</a></p>
+<h1 th:text="${__#{T(com.rukon.Steams.GreetingController).NAME}__}"></h1>
+
 </body>
 
 
