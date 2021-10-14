@@ -9,9 +9,9 @@ public class Main {
         /*Session session = null;
         try {
             JSch jsch = new JSch();
-            session = jsch.getSession("centralmichigan", "signalvine.moveitcloud.com", 22);
+            session = jsch.getSession("user", "ftp server", 22);
             session.setConfig("StrictHostKeyChecking", "no");
-            session.setPassword("2p_bWzAG");
+            session.setPassword("password");
             session.connect();
 
             Channel channel = session.openChannel ("sftp");
